@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FalcoFlow - Dịch vụ AI & Automation cho Doanh nghiệp SME</title>
+  <meta name="description" content="SmartFlow giúp doanh nghiệp SME tự động hoá quy trình làm việc bằng AI & Automation: tiết kiệm thời gian, giảm chi phí, tăng doanh thu.">
+  <meta name="keywords" content="AI cho doanh nghiệp, automation, tự động hoá quy trình, chatbot, marketing automation, SmartFlow, giải pháp AI SME">
+  <meta property="og:title" content="SmartFlow - Giải pháp AI & Automation cho SME">
+  <meta property="og:description" content="Tự động hoá quy trình, tăng hiệu suất, giảm chi phí vận hành cho doanh nghiệp SME.">
+  <meta property="og:image" content="https://via.placeholder.com/600x300?text=SmartFlow+AI">
+  <meta property="og:type" content="website">
+
+  <!-- Thư viện hiệu ứng AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* RESET */
+    * { box-sizing: border-box; font-family: "Segoe UI", sans-serif; scroll-behavior: smooth; }
+    body { margin: 0; color: #333; background: linear-gradient(180deg, #f9f9ff 0%, #ffffff 100%); }
+
+    /* HEADER (giữ nguyên) */
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(135deg, #007bff, #6f42c1);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15), transparent 70%);
+      animation: glow 8s infinite linear;
+    }
+    @keyframes glow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    header img { width: 140px; margin-bottom: 15px; z-index: 2; position: relative; }
+    header h1 {
+      font-size: 32px;
+      margin: 10px 0;
+      font-weight: 700;
+      z-index: 2;
+      position: relative;
+    }
+    header p {
+      font-size: 17px;
+      color: #e8e8ff;
+      max-width: 700px;
+      margin: 10px auto 0;
+      z-index: 2;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* LAYOUT CHUNG */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* HERO STATS */
+    .stats {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .stat {
+      background:#fff;
+      padding:12px 18px;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(16,24,40,0.06);
+      min-width:170px;
+      text-align:center;
+    }
+    .stat h3 { margin:0; color:#1f2d8f; font-size:20px; }
+    .stat p { margin:6px 0 0; color:#666; font-size:13px; }
+
+    /* FEATURES GRID */
+    .features {
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:18px;
+      margin-top:30px;
+    }
+    .card {
+      background:linear-gradient(180deg,#ffffff,#fbfbff);
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 8px 28px rgba(47,45,66,0.06);
+      text-align:left;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover { transform:translateY(-6px); box-shadow:0 18px 38px rgba(47,45,66,0.09); }
+    .card .icon {
+      font-size:28px;
+      width:54px;
+      height:54px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      background:linear-gradient(135deg,#eff4ff,#f4efff);
+      margin-bottom:10px;
+    }
+    .card h4 { margin:6px 0; color:#222; font-size:18px; }
+    .card p { margin:0; color:#555; font-size:14px; line-height:1.6; }
+
+    /* TWO-COLUMN AREA (features + form) */
+    .two-col {
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:26px;
+      align-items:start;
+      margin-top:26px;
+    }
+
+    /* FORM (nâng cấp) */
+    form {
+      background: linear-gradient(180deg, #ffffff, #fbfbff);
+      padding:22px;
+      border-radius:14px;
+      box-shadow: 0 10px 30px rgba(16,24,40,0.06);
+      text-align:left;
+      position:relative;
+    }
+    form small { display:block; color:#666; margin-bottom:10px; font-size:13px; }
+    .form-row { display:flex; gap:10px; }
+    .form-row input { flex:1; }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #e1e1ee;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.12s ease;
+      background:transparent;
+    }
+    input:focus, textarea:focus { outline:none; border-color:#6f42c1; box-shadow: 0 6px 18px rgba(111,66,193,0.08); }
+    .muted { color:#777; font-size:13px; }
+
+    button.primary {
+      background: linear-gradient(135deg,#6f42c1,#007bff);
+      color:white; border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:700;
+    }
+    .or {
+      text-align:center; color:#888; font-size:13px; margin:8px 0 14px;
+    }
+
+    /* TRUST & TESTIMONIAL */
+    .trust {
+      display:flex; gap:12px; align-items:center; justify-content:center; margin-top:24px; flex-wrap:wrap;
+    }
+    .trust img { height:36px; opacity:.9; filter:grayscale(.0); }
+
+    .testimonial {
+      background:#fff; padding:18px; border-radius:12px; margin-top:20px; box-shadow:0 8px 24px rgba(16,24,40,0.04);
+    }
+    .testimonial p { margin:0 0 8px; color:#333; }
+    .testimonial .who { color:#666; font-size:13px; }
+
+    /* PRICING CARDS */
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:28px; }
+    .price {
+      padding:18px; border-radius:12px; background:linear-gradient(180deg,#fff,#fbfbff); text-align:left; box-shadow:0 8px 30px rgba(16,24,40,0.05);
+    }
+    .price h3 { margin:0 0 8px; color:#1f2d8f; }
+    .price .cost { font-size:22px; font-weight:800; color:#222; margin-bottom:8px; }
+    .price ul { margin:0 0 12px 0; padding:0 0 0 16px; color:#555; }
+    .price button { width:100%; }
+
+    /* FAQ */
+    .faq { margin-top:26px; text-align:left; }
+    .faq details { background:#fff; padding:12px 14px; border-radius:10px; margin-bottom:10px; box-shadow:0 6px 18px rgba(16,24,40,0.04); }
+    .faq summary { font-weight:600; cursor:pointer; color:#222; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #777;
+      background: #f3f2ff;
+      margin-top: 40px;
+    }
+
+    /* ZALO BUTTON */
+    .zalo-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #0068ff;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      z-index: 100;
+    }
+    .zalo-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 980px) {
+      .features { grid-template-columns: repeat(2,1fr); }
+      .two-col { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 24px; }
+      .features { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .stat { min-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<header data-aos="fade-down">
+  <img src="logo.png" alt="SmartFlow Logo">
+  <h1>FalcoFlow - Dịch vụ AI & Automation cho SME</h1>
+  <p>Tự động hoá quy trình, tối ưu chi phí và nâng cao hiệu suất hoạt động doanh nghiệp nhỏ & vừa bằng công nghệ AI hiện đại.</p>
+</header>
+
+<div class="container">
+
+  <!-- Short lead + stats -->
+  <div data-aos="fade-up">
+    <h2 style="color:#1f2d8f; text-align:center; font-size:24px; margin:6px 0 0;">Tự động hóa thông minh. Triển khai nhanh. Lợi tức rõ rệt.</h2>
+    <p style="text-align:center; color:#555; max-width:900px; margin:10px auto 0;">
+      FalcoFlow giúp doanh nghiệp SME tại Việt Nam tự động hóa các tác vụ lặp, nâng cao trải nghiệm khách hàng và tối ưu chi phí vận hành. Chúng tôi cung cấp giải pháp trọn gói từ phân tích quy trình, tích hợp hệ thống đến vận hành và tối ưu liên tục.
+    </p>
+
+    <div class="stats" aria-hidden="true">
+      <div class="stat" data-aos="fade-right">
+        <h3>–30%</h3>
+        <p>Giảm chi phí vận hành trung bình</p>
+      </div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="100">
+        <h3>×2</h3>
+        <p>Tăng năng suất xử lý đơn / nhân viên</p>
+      </div>
+      <div class="stat" data-aos="fade-left" data-aos-delay="200">
+        <h3>14 ngày</h3>
+        <p>Proof-of-Value / triển khai mẫu nhanh</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features + contact form -->
+  <div class="two-col">
+
+    <div>
+      <h3 style="color:#5b34e4; margin:0 0 10px;">Những gì FalcoFlow làm được</h3>
+      <div class="features">
+        <div class="card" data-aos="fade-up">
+          <div class="icon">🤖</div>
+          <h4>Chatbot & CS tự động</h4>
+          <p>Trả lời FAQ, xử lý khiếu nại, chuyển tiếp lead cho sales với tích hợp đa kênh (Zalo, Facebook, Web).</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="80">
+          <div class="icon">📦</div>
+          <h4>Tự động xử lý đơn hàng</h4>
+          <p>Tích hợp kho, vận chuyển, tạo nhãn, cập nhật trạng thái cho khách tự động.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="160">
+          <div class="icon">📊</div>
+          <h4>Báo cáo & Dashboard</h4>
+          <p>Báo cáo KPI tự động, dashboard quản lý bán hàng, cảnh báo bất thường bằng AI.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="240">
+          <div class="icon">✉️</div>
+          <h4>Marketing Automation</h4>
+          <p>Chuỗi email/SMS/Zalo theo hành vi mua, phân khúc khách hàng và A/B testing nội dung.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="320">
+          <div class="icon">🔍</div>
+          <h4>Phân tích dữ liệu bằng AI</h4>
+          <p>Phân loại khách hàng, dự báo tồn kho, đề xuất khuyến mãi tối ưu.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="400">
+          <div class="icon">🔌</div>
+          <h4>Tích hợp hệ thống</h4>
+          <p>API, webhook và connector sẵn sàng kết nối ERP, POS, CRM, kênh bán hàng phổ biến.</p>
+        </div>
+      </div>
+
+      <!-- Trust logos -->
+      <div class="trust" aria-label="Khách hàng và đối tác">
+  <img src="/assets/logos/khachhang1.svg" alt="Khách hàng 1" loading="lazy"
+       width="120" height="36"
+       onerror="this.onerror=null; this.src='https://via.placeholder.com/120x36?text=Logo';">
+  <img src="/assets/logos/khachhang2.svg" alt="Khách hàng 2" loading="lazy"
+       width="120" height="36"
+       onerror="this.onerror=null; this.src='https://via.placeholder.com/120x36?text=Logo';">
+  <img src="/assets/logos/partner.svg" alt="Đối tác" loading="lazy"
+       width="120" height="36"
+       onerror="this.onerror=null; this.src='https://via.placeholder.com/120x36?text=Logo';">
+</div>
+
+
+      <!-- Testimonial -->
+      <div class="testimonial" data-aos="fade-up" data-aos-delay="180">
+        <p>“FalcoFlow triển khai PoC xử lý đơn tự động cho chuỗi 5 cửa hàng. Sau 1 tháng, thời gian xử lý đơn giảm 40% và tỉ lệ giao hàng đúng hạn tăng 18%.”</p>
+        <div class="who">— Nguyễn A, Giám đốc Vận hành, Công ty bán lẻ F</div>
+      </div>
+
+      <!-- Pricing -->
+      <h3 style="margin-top:28px; color:#5b34e4;">Gói dịch vụ tham khảo</h3>
+      <div class="pricing-grid" data-aos="fade-up" data-aos-delay="220">
+        <div class="price">
+          <h3>Starter</h3>
+          <div class="cost">Từ 5.000.000 VNĐ</div>
+          <ul>
+            <li>PoC 14 ngày</li>
+            <li>1 workflow tự động</li>
+            <li>Hỗ trợ tích hợp cơ bản</li>
+          </ul>
+          <button class="primary" onclick="scrollToForm()">YÊU CẦU DEMO</button>
+        </div>
+
+        <div class="price">
+          <h3>Pro</h3>
+          <div class="cost">Từ 18.000.000 VNĐ</div>
+          <ul>
+            <li>2–5 workflows</li>
+            <li>Chatbot & marketing cơ bản</li>
+            <li>Báo cáo định kỳ</li>
+          </ul>
+          <button class="primary" onclick="scrollToForm()">LIÊN HỆ NGAY</button>
+        </div>
+
+        <div class="price">
+          <h3>Enterprise</h3>
+          <div class="cost">Tùy chỉnh</div>
+          <ul>
+            <li>Custom AI, tích hợp ERP</li>
+            <li>Hỗ trợ 24/7 & SLA</li>
+            <li>Triển khai & đào tạo on-site</li>
+          </ul>
+          <button class="primary" onclick="scrollToForm()">BÁO GIÁ TÙY CHỈNH</button>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq" data-aos="fade-up" data-aos-delay="260">
+        <h3 style="color:#5b34e4; margin-bottom:8px;">Câu hỏi thường gặp</h3>
+        <details>
+          <summary>Thời gian triển khai trung bình là bao lâu?</summary>
+          <p>PoC 7–14 ngày. Triển khai full từ 2–8 tuần tùy phức tạp và tích hợp hệ thống.</p>
+        </details>
+        <details>
+          <summary>Chi phí có phụ thuộc vào số lượng người dùng không?</summary>
+          <p>Chi phí tính theo số workflows, số kênh tích hợp và yêu cầu tính năng AI. Chúng tôi có gói linh hoạt cho SME.</p>
+        </details>
+        <details>
+          <summary>Hỗ trợ sau triển khai như thế nào?</summary>
+          <p>Cung cấp tài liệu, đào tạo, và gói hỗ trợ 30/60/90 ngày. Gói Enterprise có SLA 24/7.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <aside>
+      <form id="leadForm" data-aos="zoom-in" aria-label="Form liên hệ">
+        <small class="muted">Nhận tư vấn miễn phí. Chúng tôi sẽ liên hệ trong 24h làm việc.</small>
+
+        <label for="name">Họ và tên</label>
+        <input type="text" id="name" name="name" placeholder="Nguyễn Văn A" required>
+
+        <label for="phone">Số điện thoại</label>
+        <input type="tel" id="phone" name="phone" placeholder="09xxxxxxxx" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="email@domain.com">
+
+        <label for="company">Tên công ty (nếu có)</label>
+        <input type="text" id="company" name="company" placeholder="Tên công ty">
+
+        <label for="message">Nhu cầu / Mô tả ngắn</label>
+        <textarea id="message" name="message" rows="4" placeholder="VD: Tự động hoá xử lý đơn hàng, chatbot bán hàng, báo cáo KPI..."></textarea>
+
+        <div class="or">Hoặc gọi trực tiếp: <strong style="color:#1f2d8f">Zalo / Hotline: 0123 456 789</strong></div>
+
+        <button type="submit" class="primary">🚀 Gửi yêu cầu tư vấn</button>
+
+        <p id="status" style="text-align:center; color:#5b34e4; font-weight:600; margin-top:8px;"></p>
+
+        <p style="font-size:12px; color:#888; margin-top:8px;">
+          Bằng cách gửi bạn đồng ý cho FalcoFlow lưu trữ thông tin liên hệ để phục vụ liên hệ tư vấn. Thông tin được bảo mật theo chính sách nội bộ.
+        </p>
+      </form>
+    </aside>
+
+  </div> <!-- end two-col -->
+
+</div> <!-- end container -->
+
+<footer data-aos="fade-up">
+  © 2025 FalcoFlow. All rights reserved. • Email: info@falcoflow.vn • Hotline: 0123 456 789
+</footer>
+
+<a href="https://zalo.me/1234567890" target="_blank" class="zalo-button" data-aos="zoom-in">💬</a>
+
+<!-- JS xử lý gửi form (nâng cấp nhẹ) -->
+<script>
+  function scrollToForm() {
+    document.getElementById('leadForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  const form = document.getElementById('leadForm');
+  const status = document.getElementById('status');
+
+  function validatePhone(phone) {
+    // đơn giản: bắt đầu bằng 0 hoặc +84 và có 9-11 chữ số
+    return /^[0\+]\d{8,12}$/.test(phone.replace(/\s+/g,''));
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = "⏳ Đang gửi dữ liệu...";
+    const payload = {
+      name: (form.name.value || '').trim(),
+      phone: (form.phone.value || '').trim(),
+      email: (form.email.value || '').trim(),
+      company: (form.company.value || '').trim(),
+      message: (form.message.value || '').trim(),
+      utm_source: new URLSearchParams(window.location.search).get('utm_source') || '',
+      page: window.location.pathname,
+      sent_at: new Date().toISOString()
+    };
+
+    if (!payload.name || !payload.phone) {
+      status.textContent = "❗ Vui lòng nhập tên và số điện thoại.";
+      return;
+    }
+    if (!validatePhone(payload.phone)) {
+      status.textContent = "❗ Số điện thoại không hợp lệ.";
+      return;
+    }
+
+    try {
+      // VẪN GIỮ ENDPOINT CỦA BẠN. Nếu server hỗ trợ CORS hãy chuyển mode sang 'cors'.
+      await fetch("https://script.google.com/macros/s/AKfycbzaU5r2Bfj0CuXZlq_beKGzsuOqBQZODcOy-6rzKZZGzv6PCCoLDF_rCWf_OWD_e9UJ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      // Không phụ thuộc vào phản hồi (do no-cors). Hiển thị thông báo thành công.
+      status.textContent = "✅ Gửi thành công! Cảm ơn. Chúng tôi sẽ gọi lại trong 24 giờ.";
+      form.reset();
+      // optional: redirect sau 1.5s
+      setTimeout(() => window.location.href = "thankyou.html", 1400);
+    } catch (err) {
+      // fallback: mở mailto nếu fetch lỗi nghiêm trọng
+      status.textContent = "❌ Gửi thất bại. Vui lòng gọi/Zalo: 0123 456 789";
+      console.error(err);
+    }
+  });
+</script>
+
+<!-- AOS Animation -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 900, once: true });
+</script>
+
+</body>
+</html>
